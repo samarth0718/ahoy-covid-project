@@ -12,10 +12,12 @@ import { Platform } from '@angular/cdk/platform';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
+  public default: string = "All";
 
   public montlyData: any[] = [];
 
-  public histoicalMonthlyData: HistoticMonth[] = [];
+  public historicalMonthlyData: HistoticMonth[] = [];
 
   public countries: any[] = [];
 
@@ -44,14 +46,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  loader: boolean = false;
+
   ngOnInit(): void {
     if (this.platform.IOS || this.platform.ANDROID) {
-      this.pieChart.options = { 'height': 150, 'width': 300, backgroundColor: '#fff', };
+      this.pieChart.options = { 'height': 150, 'width': 300, backgroundColor: '#fff'};
       this.geoChart.options.height = '150';
 
     } else if (this.platform.isBrowser) {
       this.geoChart.options.height = '500';
-      this.pieChart.options = { 'height': 500, 'width': 700, backgroundColor: '#fff', };
+      this.pieChart.options = { 'height': 500, 'width': 700, backgroundColor: '#fff'};
     }
     this.getCovidStat();
     this.getCovidHistoricalData();
@@ -83,6 +87,7 @@ export class DashboardComponent implements OnInit {
 
   // Get Historical Data from the API and Group the data by month
   getCovidHistoricalData(country?: string) {
+    this.loader = true;
     this.dashBoardService.getCovidHistory(country).subscribe((res: any) => {
       if (res.response.length > 0) {
         let data = res.response.filter((data: any) => ('2022' == data.day.split(('-'))[0])).reduce((pre: any, val: any) => {
@@ -90,13 +95,15 @@ export class DashboardComponent implements OnInit {
           (pre[m]) ? pre[m].value += Number(val.cases.new ? val.cases.new.replace('+', '') : 0) : pre[m] = { month: String(m), value: Number(val.cases.new ? val.cases.new.replace('+', '') : 0) };
           return pre;
         }, {})
-        let sortfun = Object.values(data).sort((a: any, b: any) => {
+        let sortByMount = Object.values(data).sort((a: any, b: any) => {
           return a.month - b.month;
         });
-        this.histoicalMonthlyData = sortfun as any;
+        this.historicalMonthlyData = sortByMount as any;
+        this.loader = false;
       }
     }, err => {
       this.ready = true;
+      this.loader = false;
       this.showSnackBar("Something went wrong. Please try again later");
     });
   }
@@ -108,8 +115,8 @@ export class DashboardComponent implements OnInit {
       this.countries = countiesCache;
     } else {
       this.dashBoardService.getCountryList().subscribe((res: any) => {
-        this.countries = res.response;
-        this.cacheService.setCacheCounties(res.response)
+        this.countries = ['All', ...res.response];
+        this.cacheService.setCacheCounties(this.countries);
       }, err => {
         this.showSnackBar("Something went wrong. Unable to get Country Data");
       });

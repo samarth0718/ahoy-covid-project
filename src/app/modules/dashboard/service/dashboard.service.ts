@@ -14,7 +14,7 @@ export class DashboardService {
 
   getCovidStat(country?: string): Observable<any> {
     let endpoint = `${EndPointConst.GET_COVID_STAT}`;
-    if (country) {
+    if (country && country.toLowerCase() != 'all') {
       endpoint = `${endpoint}?&country=${country}`;
     }
     return this.http.get(endpoint, {});
