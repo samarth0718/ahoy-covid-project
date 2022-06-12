@@ -31,25 +31,4 @@ export class DashboardService {
     return  this.http.get(endpoint);
   }
   
-
 }
-
-  // var myArray = [
-  //   {date: "2017-01-01", num: 2},
-  //   {date: "2017-01-02", num: 3},
-  //   {date: "2017-02-04", num: 6},
-  //   {date: "2022-02-05", num: 15}
-  // ],
-  //   groupKey = 0;
-  //   let fillter = myArray.filter(data => ('2017' == data.date.split(('-'))[0]));
-  //   console.log(fillter);
-    
-  //   groups = myArray.reduce((r: any, o: any) => {
-  //       var m = o.date.split(('-'))[1];
-  //       var y = o.date.split(('-'))[0];
-  //       if (y == '2017') {
-  //       (r[m])? r[m].data += o.num : r[m] = {group: String(groupKey++), data: o.num};
-  //       return r;
-  //       }
-  //   }, {});
-  //   console.log(groups);
