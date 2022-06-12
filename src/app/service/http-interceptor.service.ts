@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError as observableThrowError, throwError } from 'rxjs';
 import { catchError, switchMap, take, finalize, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-// import { EndPointConst } from '../../constants/end-point.const';
 @Injectable({
   providedIn: 'root'
 })
