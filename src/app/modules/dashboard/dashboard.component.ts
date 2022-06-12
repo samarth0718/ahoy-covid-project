@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
     this.loader = true;
     this.dashBoardService.getCovidHistory(country).subscribe((res: any) => {
       if (res.response.length > 0) {
-        let data = res.response.filter((data: any) => ('2022' == data.day.split(('-'))[0])).reduce((pre: any, val: any) => {
+        let data = res.response.filter((data: any) => (new Date().getFullYear().toString() == data.day.split(('-'))[0])).reduce((pre: any, val: any) => {
           var m = val.day.split(('-'))[1];
           (pre[m]) ? pre[m].value += Number(val.cases.new ? val.cases.new.replace('+', '') : 0) : pre[m] = { month: String(m), value: Number(val.cases.new ? val.cases.new.replace('+', '') : 0) };
           return pre;
