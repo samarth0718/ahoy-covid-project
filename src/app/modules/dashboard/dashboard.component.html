@@ -1,0 +1,29 @@
+<section>
+
+<!-- ::::::::::::::::::::::: Map Section ::::::::::::::::::::::: -->
+<div fxLayout="row wrap" fxLayoutAlign="start center">
+    <mat-form-field fxFlex= "100" fxFlex.gt-md="40" appearance="outline">
+        <mat-label>Select Country</mat-label>
+        <mat-select (selectionChange)="countryChange($event.value)">
+          <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+
+<!-- ::::::::::::::::: Pie Chart Section :::::::::::::::::::::: -->
+<div fxLayout="row wrap" fxLayoutAlign="center center"> 
+    <div fxFlex="100" fxFlex.gt-md="50" class="card-body">
+        <h3>Map Affected</h3>
+        <google-chart *ngIf="ready" [data]="geoChart"></google-chart>
+      <ngx-skeleton-loader  *ngIf="!ready" [theme]="{ width: '600px', height: '500px' }"></ngx-skeleton-loader>
+    </div>
+    <div fxFlex="100" fxFlex.gt-md="50" class="card-body">
+        <h3>Statistical Chart</h3>
+        <google-chart *ngIf="ready" [data]="pieChart"></google-chart>
+      <ngx-skeleton-loader  *ngIf="!ready" [theme]="{ width: '600px', height: '500px' }"></ngx-skeleton-loader>
+    </div>
+</div>
+
+<app-historic-month *ngIf="histoicalMonthlyData" [historicMonth]="histoicalMonthlyData"></app-historic-month>
+
+</section>

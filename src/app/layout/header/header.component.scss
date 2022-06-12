@@ -1,0 +1,13 @@
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .position-fixed {
+    position: fixed;
+    z-index: 999;
+}
+
+.position-hidden {
+  visibility: hidden;
+}
