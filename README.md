@@ -2,6 +2,24 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
 
+
+# ProjectStructure
+
+<pre class="notranslate"><code>.
+├── ...
+├── src    
+     ├── app                            
+     ├    ├── component                    # Child Components
+          ├── constant                     # Decalre all the constant in the this folder we have only one file endpoin.const
+          └── layout                       # All the layout component (ex: header, footer)   
+          └── modules                      # lazy load modules
+          └── pipe                         # Pipes are used for formating data
+          └── service                      # Service files are used 
+          └── shared                       # Common shared modules
+     ├── envinorments                      # All the envinorment variables such as API KEY are is declared
+└── ...
+</code></pre>
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
